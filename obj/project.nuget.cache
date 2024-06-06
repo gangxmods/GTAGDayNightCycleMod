@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "bIQXLl2js/A=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Shadow\\source\\repos\\DayAndNightTImeChanger\\DaytimeAndNightTimeChanger.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Shadow\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
