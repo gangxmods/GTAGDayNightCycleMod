@@ -21,6 +21,7 @@ namespace DaytimeAndNightTimeChanger
         public static GameObject DaytimeAndNightTimeChanger;
         public static bool inModded = false;
         public static Plugin instance;
+        public int OGTime;
 
         void Start()
         {
@@ -43,6 +44,7 @@ namespace DaytimeAndNightTimeChanger
             DaytimeAndNightTimeChanger.transform.position = new Vector3(0, 0, 0);
             DaytimeAndNightTimeChanger.SetActive(true);
             inModded = false;
+            RestoreOGTime();
         }
 
         void OnEnable()
@@ -74,6 +76,7 @@ namespace DaytimeAndNightTimeChanger
             moon.AddComponent<MoonButton>();
             sun.layer = 18;
             moon.layer = 18;
+            GetOGTime();
         }
 
         public static void LoadAssets()
@@ -125,6 +128,23 @@ namespace DaytimeAndNightTimeChanger
             {
                 t.currentWeatherIndex = 3;
                 t.SetTimeOfDay(8);
+            }
+        }
+        
+        public void GetOGTime()
+        {
+            BetterDayNightManager dayNightManager = GameObject.FindObjectOfType<BetterDayNightManager>();
+            if (dayNightManager != null)
+            {
+                OGTime = dayNightManager.currentTimeIndex;
+            }
+        }
+        
+        public void RestoreOGTime()
+        {
+            foreach (BetterDayNightManager t in GameObject.FindObjectsOfType<BetterDayNightManager>())
+            {
+                t.SetTimeOfDay(OGTime);
             }
         }
     }
