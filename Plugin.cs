@@ -42,7 +42,7 @@ namespace DaytimeAndNightTimeChanger
         public void OnLeave(string gamemode)
         {
             DaytimeAndNightTimeChanger.transform.position = new Vector3(0, 0, 0);
-            DaytimeAndNightTimeChanger.SetActive(true);
+            DaytimeAndNightTimeChanger.SetActive(false);
             inModded = false;
             RestoreOGTime();
         }
