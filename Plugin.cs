@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 using BepInEx;
@@ -33,9 +33,9 @@ namespace DaytimeAndNightTimeChanger
         {
             DaytimeAndNightTimeChanger.SetActive(true);
             inModded = true;
-            DaytimeAndNightTimeChanger.transform.position = new Vector3(-67.4002f, 11.3408f, -80.6326f);
-            DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(359.4726f, 331.1904f, 0f);
-            DaytimeAndNightTimeChanger.transform.localScale = new Vector3(0.9f, 1f, 1f);
+            DaytimeAndNightTimeChanger.transform.position = new Vector3(-68.6002f, 11.3735f, -84.0571f);
+            DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(0f, 250.0225f, 359.6218f);
+            DaytimeAndNightTimeChanger.transform.localScale = new Vector3(.6f, .6f, .6f);
         }
 
         [ModdedGamemodeLeave]
@@ -64,10 +64,18 @@ namespace DaytimeAndNightTimeChanger
             DaytimeAndNightTimeChanger = Instantiate(DaytimeAndNightTimeChanger);
             DaytimeAndNightTimeChanger.transform.position = new Vector3(0, 0, 0);
             DaytimeAndNightTimeChanger.SetActive(true);
+            LoadButtons();
+            GetOGTime();
+        }
+
+        void LoadButtons()
+        {
             GameObject day = GameObject.Find("day");
             GameObject night = GameObject.Find("night");
             GameObject moon = GameObject.Find("Moon");
             GameObject sun = GameObject.Find("sun");
+            GameObject sunset = GameObject.Find("sunset");
+            GameObject Sun4Set = GameObject.Find("Sun4Set");
             day.AddComponent<SunButton>();
             night.AddComponent<MoonButton>();
             day.layer = 18;
@@ -76,7 +84,10 @@ namespace DaytimeAndNightTimeChanger
             moon.AddComponent<MoonButton>();
             sun.layer = 18;
             moon.layer = 18;
-            GetOGTime();
+            sunset.AddComponent<SunsetButton>();
+            Sun4Set.AddComponent<SunsetButton>();
+            sunset.layer = 18;
+            Sun4Set.layer = 18;
         }
 
         public static void LoadAssets()
@@ -103,9 +114,9 @@ namespace DaytimeAndNightTimeChanger
             if (!PhotonNetwork.InRoom)
             {
                 DaytimeAndNightTimeChanger.SetActive(true);
-                DaytimeAndNightTimeChanger.transform.position = new Vector3(-67.4002f, 11.3408f, -80.6326f);
-                DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(359.4726f, 331.1904f, 0f);
-                DaytimeAndNightTimeChanger.transform.localScale = new Vector3(0.9f, 1f, 1f);
+                DaytimeAndNightTimeChanger.transform.position = new Vector3(-68.6002f, 11.3735f,-84.0571f);
+                DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(0f, 250.0225f, 359.6218f);
+                DaytimeAndNightTimeChanger.transform.localScale = new Vector3(.6f, .6f, .6f);
             }
             else if (!inModded)
             {
@@ -131,7 +142,16 @@ namespace DaytimeAndNightTimeChanger
             }
         }
         
-        public void GetOGTime()
+        public void ChangeToSunset()
+        {
+            foreach (BetterDayNightManager t in GameObject.FindObjectsOfType<BetterDayNightManager>())
+            {
+                t.currentWeatherIndex = 3;
+                t.SetTimeOfDay(6);
+            }
+        }
+
+        private void GetOGTime()
         {
             BetterDayNightManager dayNightManager = GameObject.FindObjectOfType<BetterDayNightManager>();
             if (dayNightManager != null)
@@ -139,8 +159,8 @@ namespace DaytimeAndNightTimeChanger
                 OGTime = dayNightManager.currentTimeIndex;
             }
         }
-        
-        public void RestoreOGTime()
+
+        private void RestoreOGTime()
         {
             foreach (BetterDayNightManager t in GameObject.FindObjectsOfType<BetterDayNightManager>())
             {
