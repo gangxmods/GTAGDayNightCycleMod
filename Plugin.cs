@@ -121,6 +121,7 @@ namespace DaytimeAndNightTimeChanger
             else if (!inModded)
             {
                 DaytimeAndNightTimeChanger.transform.position = new Vector3(0, 0, 0);
+                RestoreOGTime();
             }
         }
 
