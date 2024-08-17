@@ -33,8 +33,8 @@ namespace DaytimeAndNightTimeChanger
         {
             DaytimeAndNightTimeChanger.SetActive(true);
             inModded = true;
-            DaytimeAndNightTimeChanger.transform.position = new Vector3(-68.6002f, 11.3735f, -84.0571f);
-            DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(0f, 250.0225f, 359.6218f);
+            DaytimeAndNightTimeChanger.transform.position = new Vector3(-65.5877f, 11.3921f, -84.4808f);
+            DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(0f, 176.5996f, 0f);
             DaytimeAndNightTimeChanger.transform.localScale = new Vector3(.6f, .6f, .6f);
         }
 
@@ -114,8 +114,8 @@ namespace DaytimeAndNightTimeChanger
             if (!PhotonNetwork.InRoom)
             {
                 DaytimeAndNightTimeChanger.SetActive(true);
-                DaytimeAndNightTimeChanger.transform.position = new Vector3(-68.6002f, 11.3735f,-84.0571f);
-                DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(0f, 250.0225f, 359.6218f);
+                DaytimeAndNightTimeChanger.transform.position = new Vector3(-65.5877f, 11.3921f, -84.4808f);
+                DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(0f, 176.5996f, 0f);
                 DaytimeAndNightTimeChanger.transform.localScale = new Vector3(.6f, .6f, .6f);
             }
             else if (!inModded)
