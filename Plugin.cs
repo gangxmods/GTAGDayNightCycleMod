@@ -21,6 +21,13 @@ namespace DaytimeAndNightTimeChanger
         public static GameObject DaytimeAndNightTimeChanger;
         public static bool inModded = false;
         public static Plugin instance;
+        public static AudioClip keyboardClickClip;
+        public static GameObject day;
+        public static GameObject sun;
+        public static GameObject moon;
+        public static GameObject night;
+        public static GameObject sunset;
+        public static GameObject Sun4Set;
         public int OGTime;
 
         void Start()
@@ -31,8 +38,8 @@ namespace DaytimeAndNightTimeChanger
         [ModdedGamemodeJoin]
         public void OnJoin(string gamemode)
         {
-            DaytimeAndNightTimeChanger.SetActive(true);
             inModded = true;
+            DaytimeAndNightTimeChanger.SetActive(true);
             DaytimeAndNightTimeChanger.transform.position = new Vector3(-65.5877f, 11.3921f, -84.4808f);
             DaytimeAndNightTimeChanger.transform.rotation = Quaternion.Euler(0f, 176.5996f, 0f);
             DaytimeAndNightTimeChanger.transform.localScale = new Vector3(.6f, .6f, .6f);
@@ -70,30 +77,36 @@ namespace DaytimeAndNightTimeChanger
 
         void LoadButtons()
         {
-            GameObject day = GameObject.Find("day");
-            GameObject night = GameObject.Find("night");
-            GameObject moon = GameObject.Find("Moon");
-            GameObject sun = GameObject.Find("sun");
-            GameObject sunset = GameObject.Find("sunset");
-            GameObject Sun4Set = GameObject.Find("Sun4Set");
+            day = GameObject.Find("day");
+            night = GameObject.Find("night");
+            moon = GameObject.Find("Moon");
+            sun = GameObject.Find("sun");
+            sunset = GameObject.Find("sunset");
+            Sun4Set = GameObject.Find("Sun4Set");
             day.AddComponent<SunButton>();
+            day.AddComponent<AudioSource>();
             night.AddComponent<MoonButton>();
+            night.AddComponent<AudioSource>();
             day.layer = 18;
             night.layer = 18;
             sun.AddComponent<SunButton>();
+            sun.AddComponent <AudioSource>();
             moon.AddComponent<MoonButton>();
             sun.layer = 18;
             moon.layer = 18;
             sunset.AddComponent<SunsetButton>();
+            sunset.AddComponent<AudioSource>();
             Sun4Set.AddComponent<SunsetButton>();
             sunset.layer = 18;
             Sun4Set.layer = 18;
         }
 
-        public static void LoadAssets()
+        public static async void LoadAssets()
         {
             AssetBundle bundle = LoadAssetBundle("DaytimeAndNightTimeChanger.daytimeandnightime");
             DaytimeAndNightTimeChanger = bundle.LoadAsset<GameObject>("NIghtAndDay");
+            GameObject T = bundle.LoadAsset<GameObject>("NIghtAndDay");
+            keyboardClickClip = bundle.LoadAsset<AudioClip>("keyboardclick.mp3");
         }
 
         public static AssetBundle LoadAssetBundle(string path)
@@ -120,13 +133,15 @@ namespace DaytimeAndNightTimeChanger
             }
             else if (!inModded)
             {
-                DaytimeAndNightTimeChanger.transform.position = new Vector3(0, 0, 0);
+               // DaytimeAndNightTimeChanger.transform.position = new Vector3(0, 0, 0);
                 RestoreOGTime();
             }
         }
 
         public void ChangeToDay()
         {
+            day.GetComponent<AudioSource>().clip = keyboardClickClip;
+            day.GetComponent<AudioSource>().Play();
             foreach (BetterDayNightManager t in GameObject.FindObjectsOfType<BetterDayNightManager>())
             {
                 t.currentWeatherIndex = 3;
@@ -136,6 +151,8 @@ namespace DaytimeAndNightTimeChanger
 
         public void ChangeToNight()
         {
+            night.GetComponent<AudioSource>().clip = keyboardClickClip;
+            night.GetComponent<AudioSource>().Play();
             foreach (BetterDayNightManager t in GameObject.FindObjectsOfType<BetterDayNightManager>())
             {
                 t.currentWeatherIndex = 3;
@@ -145,6 +162,8 @@ namespace DaytimeAndNightTimeChanger
         
         public void ChangeToSunset()
         {
+            sunset.GetComponent<AudioSource>().clip = keyboardClickClip;
+            sunset.GetComponent<AudioSource>().Play();
             foreach (BetterDayNightManager t in GameObject.FindObjectsOfType<BetterDayNightManager>())
             {
                 t.currentWeatherIndex = 3;
